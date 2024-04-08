@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EnviroScope</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <img src="./main_logo.png" alt="Company Logo" width="330px" height="200px">
+    
+    <div class="table-container">
+        <div class="table">
+            <div class="name-container">
+                <h2>Current Values</h2>
+                <img src="./mini_logo.png" alt="Company Logo" width="50px" height="80px" style="padding-left:10px;">
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody id="current-values-table">
+                    <tr>
+                        <td>Temperature</td>
+                        <td></td> <!-- ID for temperature value -->
+                    </tr>
+                    <tr>
+                        <td>Humidity</td>
+                        <td></td> <!-- ID for humidity value -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table">
+            <div class="name-container">
+                <h2>Predicted Values</h2>
+                <img src="./ai_logo.png" alt="Company Logo" width="50px" height="70px" style="padding-left: 10px;">
+            </div>
+            <table id="t2">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody id="predicted-values-table">
+                    <tr>
+                        <td>Temperature</td>
+                        <!-- Placeholder for predicted temperature value -->
+                    </tr>
+                    <tr>
+                        <td>Humidity</td>
+                        <!-- Placeholder for predicted humidity value -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
