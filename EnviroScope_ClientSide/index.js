@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  fetch('/predicted-values')
+  fetch('http://127.0.0.1:5000/predicted-values')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
     return response.json();
   })
   .then(data => {
+    console.log(data)
+    console.log(data.temperature)
+    console.log(data.humidity)
     const temperatureValue = document.querySelector('#predicted-values-table tr:nth-child(1) td:nth-child(2)');
     const humidityValue = document.querySelector('#predicted-values-table tr:nth-child(2) td:nth-child(2)');
     

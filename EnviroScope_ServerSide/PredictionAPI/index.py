@@ -1,14 +1,16 @@
 from flask import Flask, jsonify
 from db_config import connect_to_database
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 def get_data_from_database():
     try:
         connection = connect_to_database()
 
         if connection:
-            query = 'SELECT temperature, humidity FROM sensor1prediction WHERE id = 1'
+            query = 'SELECT temperature, humidity FROM sensor1prediction'
 
             cursor = connection.cursor()
 
@@ -32,6 +34,6 @@ def get_predicted_values():
     data = get_data_from_database()
     print(data)
     return jsonify(data)
-
+    pass
 if __name__ == '__main__':
     app.run(debug=True)
