@@ -1,24 +1,30 @@
 const { fs } = require('../dependecies/modules');
+const filePath = './test_bench/testBits.txt';
 
-function generateRandomString(length) {
-    let binaryString = '';
-    for (let i = 0; i < length; i++) {
-      const randomBit = Math.round(Math.random());
-      binaryString += randomBit.toString();
+const numRows = 40; 
+
+function generateRandomBitString(n) {
+    let bitString = '';
+    for (let i = 0; i < n; i++) {
+        bitString += Math.random() < 0.5 ? '0' : '1';
     }
-    return binaryString;
-  }
-  
-  const filePath = 'test_bench/testBits.txt';
-  
-  const randomString = generateRandomString(40);
-  
-  const content = randomString;
-  
-  fs.writeFile(filePath, content, (err) => {
-    if (err) {
-      console.error('Error writing file:', err);
-      return;
+    return bitString;
+}
+
+function writeRandomBitStringToFile(filePath, numRows) {
+    let content = '';
+    for (let i = 0; i < numRows; i++) {
+        const randomString = generateRandomBitString(40);
+        content +=randomString + '\n'; 
     }
-    console.log('Text file created successfully.');
-  });
+    fs.writeFile(filePath, content, (err) => {
+        if (err) {
+            console.error('Error writing file:', err);
+            return;
+        }
+        console.log('Text file created successfully.');
+    });
+}
+
+
+writeRandomBitStringToFile(filePath, numRows);

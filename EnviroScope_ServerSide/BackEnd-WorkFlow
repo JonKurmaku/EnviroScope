@@ -1,0 +1,17 @@
+CollectorAPI ::
+
+setInterval(fetchtime){ /* where fetchtime=arrival_time-start_time */
+    localStorage=fetchDatafromFPGA()
+}
+setInterval(time){ /* where time>fetchtime */
+        collectedMeanReading=calculateAVG(localStorage)
+        postdata(collectedMeanReading)
+}
+
+PredictionAPI ::
+
+fetchDatafromDB(collectedMeanReadings){
+    setInterval(refreshtime){ /*refreshtime>>>>time*/
+    predicted_values=predictValues(collectedMeanReadings)
+    }
+}

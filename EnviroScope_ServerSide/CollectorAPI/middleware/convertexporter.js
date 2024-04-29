@@ -1,20 +1,41 @@
-const { fs } = require('../dependecies/modules');
-const convertBitsToIntegers = require('./bitconverter');
-const filePath = '../CollectorApi/test_bench/testBits.txt';
+const {path}=require('../dependecies/modules');
+const fs  = require('fs');
+const convertBitsToIntegers = require('./bitConverter');
 
-function readAndConvertFile() {
+function readAndConvertFile(inputFilePath, outputFilePath) {
     return new Promise((resolve, reject) => {
-        fs.readFile(filePath, { encoding: 'utf8' })
-            .then(data => {
-                const convertedData = convertBitsToIntegers(data);
-                console.log(convertedData);
-                resolve(convertedData);
-            })
-            .catch(err => {
-                console.error('Error reading file:', err);
+        fs.readFile(inputFilePath, 'utf8', (err, content) => {
+            if (err) {
                 reject(err);
+                return;
+            }
+            const integers = convertBitsToIntegers(content);
+            resolve(integers);
+        });
+    })
+    .then(integers => {
+        const dataToWrite = integers.reduce((acc, curr, index) => {
+            if (index % 3 === 0 && index !== 0) {
+                return acc + '\n' + curr;
+            } else {
+                return acc + ' ' + curr;
+            }
+        }, '');
+
+        return new Promise((resolve, reject) => {
+            fs.writeFile(outputFilePath, dataToWrite, (err) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                console.log('Data written to', outputFilePath);
+                resolve();
             });
+        });
+    })
+    .catch(err => {
+        console.error('Error:', err);
     });
 }
 
-module.exports = readAndConvertFile();
+module.exports=readAndConvertFile;
