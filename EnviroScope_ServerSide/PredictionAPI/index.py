@@ -1,39 +1,38 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from db_config import connect_to_database
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
-def get_data_from_database():
+@app.route('/predicted-values', methods=['GET'])
+def get_predicted_values():
     try:
         connection = connect_to_database()
-
         if connection:
-            query = 'SELECT temperature, humidity FROM sensor1prediction'
-
             cursor = connection.cursor()
 
+            query = 'SELECT temperature, humidity FROM sensor1prediction ORDER BY id DESC LIMIT 1'
             cursor.execute(query)
 
-            result = cursor.fetchone()
-
-            if result:
-                temperature, humidity = result
-                return {'temperature': temperature, 'humidity': humidity}
-            else:
-                return {'error': 'No data found'}
+            row = cursor.fetchone()
 
             cursor.close()
             connection.close()
-    except Exception as e:
-        return {'error': f'Error fetching data from database: {e}'}
 
-@app.route('/predicted-values', methods=['GET'])
-def get_predicted_values():
-    data = get_data_from_database()
-    print(data)
-    return jsonify(data)
-    pass
+            if row:
+                temperature, humidity = row
+                data = {'temperature': temperature, 'humidity': humidity}
+                return jsonify(data)
+            else:
+                return jsonify({'error': 'No data found'})
+
+        else:
+            return jsonify({'error': 'Failed to connect to database'})
+    except Exception as e:
+        return jsonify({'error': f'Error fetching predicted values: {e}'})
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+

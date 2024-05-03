@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+  
+  interval = 62000;
+
+  setInterval(()=>{
   fetch('/current-values')
   .then(response => {
     if (!response.ok) {
@@ -10,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const temperatureValue = document.querySelector('#current-values-table tr:nth-child(1) td:nth-child(2)');
     const humidityValue = document.querySelector('#current-values-table tr:nth-child(2) td:nth-child(2)');
     
-    temperatureValue.innerHTML = data.temperature;
-    humidityValue.innerHTML = data.humidity;
+    temperatureValue.textContent = data.avgTemperature + '         °C';
+    humidityValue.textContent = data.avgHumidity + '            RH';
   })
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
@@ -32,13 +36,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const temperatureValue = document.querySelector('#predicted-values-table tr:nth-child(1) td:nth-child(2)');
     const humidityValue = document.querySelector('#predicted-values-table tr:nth-child(2) td:nth-child(2)');
     
-    temperatureValue.innerHTML = data.temperature;
-    humidityValue.innerHTML = data.humidity;
+    temperatureValue.innerHTML = data.temperature + '    °C';
+    humidityValue.innerHTML = data.humidity + '     RH';
   })
   .catch(error => {
     console.error('Error fetching data:', error);
   })
 
+},interval)
+ 
 
 
 });

@@ -28,7 +28,6 @@ function readAndConvertFile(inputFilePath, outputFilePath) {
                     reject(err);
                     return;
                 }
-                console.log('Data written to', outputFilePath);
                 resolve();
             });
         });
@@ -38,4 +37,8 @@ function readAndConvertFile(inputFilePath, outputFilePath) {
     });
 }
 
+
+const inputFilePath = './test_bench/input.txt';
+const outputFilePath = './test_bench/output.txt';
+readAndConvertFile(inputFilePath,outputFilePath)
 module.exports=readAndConvertFile;

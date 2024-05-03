@@ -1,20 +1,60 @@
 const db = require("../dependecies/db_config");
-const convertedDataPromise = require('../middleware/convertexporter');
+const { fs , timers } = require("../dependecies/modules");
+const setInterval = timers.setInterval;
+const path = require('path');
 
-async function postDataToDatabase() {
+async function postDataToDatabaseValues(filePath, db) {
     try {
-        const convertedData = await convertedDataPromise; 
-      
-        const [rows, fields] = await db.execute('INSERT INTO sensor1final (humidity, temperature, checksum) VALUES (?, ?, ?)', [
-            convertedData[0], 
-            convertedData[1], 
-            convertedData[2]  
-        ]);
+        const data = await fs.readFile(filePath, 'utf8');
+        const rows = data.trim().split('\n');
 
-        console.log('Data inserted successfully:',rows);
+        for (const row of rows) {
+            const [temperature, humidity, checksum] = row.trim().split(' ');
+            console.log("H:"+humidity," T:"+temperature+" CH:"+checksum)
+            const result = await db.execute('INSERT INTO sensor1final (humidity, temperature, checksum) VALUES (?, ?, ?)', [
+                humidity,
+                temperature,
+                checksum
+            ]);
+        }
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-postDataToDatabase();
+async function postDataToDatabaseBits(filePath, db) {
+    try {
+        const data = await fs.readFile(filePath, 'utf8');
+        const rows = data.trim().split('\n');
+
+        for (const row of rows) {
+            const segments = row.trim().match(/.{1,8}/g);
+            if (segments.length !== 5) {
+                console.error('Each row should contain exactly 40 bits');
+                continue;
+            }
+
+            const [humidity, humidityFP, temperature, temperatureFP, checksum] = segments;
+
+            const result = await db.execute('INSERT INTO sensor1 (first_chunk, second_chunk, third_chunk, fourth_chunk, fifth_chunk) VALUES (?, ?, ?, ?, ?)', [
+                humidity,
+                humidityFP,
+                temperature,
+                temperatureFP,
+                checksum
+            ]);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+function startDataPosting(db) {
+    const inFilePath = './test_bench/input.txt';
+    postDataToDatabaseBits(inFilePath, db);
+
+    const outfilePath = './test_bench/output.txt';
+    postDataToDatabaseValues(outfilePath, db);
+}
+
+module.exports = startDataPosting;

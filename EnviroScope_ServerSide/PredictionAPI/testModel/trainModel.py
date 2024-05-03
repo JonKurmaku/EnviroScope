@@ -1,4 +1,5 @@
-
+import joblib
+import os
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 
@@ -19,7 +20,12 @@ model_hum = RandomForestRegressor(n_estimators=100, random_state=42)
 model_temp.fit(X_train, y_temp_train)
 model_hum.fit(X_train, y_hum_train)
 
-import joblib
-joblib.dump(model_temp, 'random_forest_model_temp.pkl')
-joblib.dump(model_hum, 'random_forest_model_hum.pkl')
+
+dirPath = 'EnviroScope_ServerSide/PredictionAPI/testModel/randomForestModel/'
+
+os.makedirs(dirPath, exist_ok=True)
+
+# Save the models with correct file paths
+joblib.dump(model_temp, os.path.join(dirPath, 'random_forest_model_temp.pkl'))
+joblib.dump(model_hum, os.path.join(dirPath, 'random_forest_model_hum.pkl'))
 

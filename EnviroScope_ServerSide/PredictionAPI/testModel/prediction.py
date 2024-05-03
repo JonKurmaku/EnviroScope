@@ -1,9 +1,13 @@
-
+import os
 import numpy as np
 import joblib
 
-model_temp = joblib.load('random_forest_model_temp.pkl')
-model_hum = joblib.load('random_forest_model_hum.pkl')
+dirPath = 'EnviroScope_ServerSide/PredictionAPI/testModel/randomForestModel/'
+
+os.makedirs(dirPath, exist_ok=True)
+
+model_temp = joblib.load(os.path.join(dirPath, 'random_forest_model_temp.pkl'))
+model_hum = joblib.load(os.path.join(dirPath, 'random_forest_model_hum.pkl'))
 
 
 next_days_data = [
@@ -24,3 +28,6 @@ for day, temp in enumerate(predictions_temp, start=1):
 print("\nPredicted humidities for next days:")
 for day, hum in enumerate(predictions_hum, start=1):
     print(f"Day {day}: {hum:.2f}")
+
+
+prediction_data=[predictions_hum,predictions_temp]

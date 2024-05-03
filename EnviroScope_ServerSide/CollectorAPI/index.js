@@ -1,6 +1,9 @@
-const { express, fs, mysql, path } = require('./dependecies/modules');
+const { express, fs, mysql, path ,timers} = require('./dependecies/modules');
 const db = require('./dependecies/db_config'); 
-
+const startDataPosting = require('./controllers/postController');
+const simulateReadings = require('./test_bench/renderFile');
+const setInterval = timers.setInterval;
+const setTimeout = timers.setTimeout;
 const app = express();
 const port = 3000;
 
@@ -14,7 +17,12 @@ app.use((req, res, next) => {
 
 require('./controllers/getController')(app,db); //Render Landing Page
 require('./controllers/dbTest')(app,db); //MySQL connection testing
-
+setInterval(()=>{
+simulateReadings()
+console.log("Files Succ");
+setTimeout(()=>startDataPosting(db),2000);  //Simulate Readings 
+console.log("POST Succ");
+},62000)
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
