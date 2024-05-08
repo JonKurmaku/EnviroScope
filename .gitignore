@@ -62,6 +62,16 @@ _output/
 .project
 .settings/
 
+# Compiled objects
+*.obj
+
+# Debug and waveform files
+*.dbg
+*.wpc
+
+# Memory content files - Uncomment if they are auto-generated
+# *.mem  
+
 # Xilinx specific statistics and temporary files
 webtalk/
 *.pb
