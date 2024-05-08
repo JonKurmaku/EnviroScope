@@ -38,6 +38,9 @@ xst/
 *.mpf
 *.qpf
 *.qsf
+*.xpr  # Include or exclude based on project tracking preferences
+*.vdb
+*.rlx
 
 # Output files
 *.cf
@@ -58,3 +61,8 @@ _output/
 *.prj
 .project
 .settings/
+
+# Xilinx specific statistics and temporary files
+webtalk/
+*.pb
+usage_statistics_webtalk.pb
