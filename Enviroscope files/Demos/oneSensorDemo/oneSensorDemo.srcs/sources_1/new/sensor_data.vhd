@@ -17,6 +17,7 @@ architecture Behavioral of DHT11_Interface is
     signal state : integer := 0;
     signal clk_divider : integer := 0;
     constant CLK_FREQ : integer := 1000000; -- 1MHz 
+    constant RESET : integer := CLK_FREQ * 6;
     constant DHT11_WAIT : integer := CLK_FREQ * 30/1000000; -- waiting 30us for DHT11 response
     -- Additional constants for timing accuracy
     constant FPGA_START_SIGNAL : integer := CLK_FREQ * 20/1000; -- 20ms for start signal by fpga
@@ -35,7 +36,7 @@ begin
             clk_divider <= clk_divider + 1;
             case state is
                 when 0 =>
-                    if start_signal = 1 and state = 0 then
+                    if start_signal = 1 and state = 0 and clk_divider = RESET then
                         dht11_data <= '0'; -- Send start signal
                         state <= 1;
                         clk_divider <= 0;

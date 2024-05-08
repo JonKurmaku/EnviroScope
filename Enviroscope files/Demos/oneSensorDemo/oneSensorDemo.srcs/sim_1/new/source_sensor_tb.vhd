@@ -1,4 +1,4 @@
-    library IEEE;
+library IEEE;
     use IEEE.STD_LOGIC_1164.ALL;
     use IEEE.STD_LOGIC_UNSIGNED.ALL;
     use IEEE.NUMERIC_STD.ALL;
@@ -59,7 +59,7 @@
     stim_proc: process
     begin       
         -- hold reset state for 100 ns.
-        wait for 100 ns; 
+        wait for 6010 ms; 
         
         -- Stimulate the Start Signal
         -- start_signal <= '1';
