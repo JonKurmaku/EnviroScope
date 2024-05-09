@@ -10,6 +10,9 @@ setInterval(time){ /* where time>fetchtime */
 
 PredictionAPI ::
 
+24 hr -> train -> predict
+KNN
+
 fetchDatafromDB(collectedMeanReadings){
     setInterval(refreshtime){ /*refreshtime>>>>time*/
     predicted_values=predictValues(collectedMeanReadings)

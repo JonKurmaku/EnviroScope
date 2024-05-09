@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', function () {
   })
   .then(data => {
     console.log(data)
-    console.log(data.temperature)
-    console.log(data.humidity)
+    console.log(data.avgTemperature)
+    console.log(data.avgHumidity)
     const temperatureValue = document.querySelector('#predicted-values-table tr:nth-child(1) td:nth-child(2)');
     const humidityValue = document.querySelector('#predicted-values-table tr:nth-child(2) td:nth-child(2)');
     
-    temperatureValue.innerHTML = data.temperature + '    °C';
-    humidityValue.innerHTML = data.humidity + '     RH';
+    temperatureValue.innerHTML = data.avgTemperature + '    °C';
+    humidityValue.innerHTML = data.avgHumidity + '     RH';
   })
   .catch(error => {
     console.error('Error fetching data:', error);

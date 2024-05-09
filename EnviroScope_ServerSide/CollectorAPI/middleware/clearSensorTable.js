@@ -55,4 +55,3 @@ resetDatabaseTable(db, tableName1, tableSchema1)
     .catch(error => {
         console.error('Error recreating table:', error);
     });
-//Invoke Functions
