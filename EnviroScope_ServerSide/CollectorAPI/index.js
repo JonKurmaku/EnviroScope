@@ -18,10 +18,10 @@ app.use((req, res, next) => {
 require('./controllers/getController')(app,db); //Render Landing Page
 require('./controllers/dbTest')(app,db); //MySQL connection testing
 setInterval(()=>{
-simulateReadings()
-console.log("Files Succ");
+simulateReadings() //TEST DATA 
+console.log("Files Successful");
 setTimeout(()=>startDataPosting(db),2000);  //Simulate Readings 
-console.log("POST Succ");
+console.log("POST Successful");
 },62000)
 
 app.listen(port, () => {

@@ -1,6 +1,7 @@
 const {path}=require('../dependecies/modules');
 const fs  = require('fs');
 const convertBitsToIntegers = require('./bitConverter');
+const checksumFilter = require('./checksumFilter');
 
 function readAndConvertFile(inputFilePath, outputFilePath) {
     return new Promise((resolve, reject) => {
@@ -9,7 +10,11 @@ function readAndConvertFile(inputFilePath, outputFilePath) {
                 reject(err);
                 return;
             }
-            const integers = convertBitsToIntegers(content);
+            console.log("Unfiltered bits",content)
+            const filteredData = checksumFilter(content)
+            console.log("Filtered Data",filteredData)
+            const integers = convertBitsToIntegers(filteredData);
+            console.log("Converted Filter Data",integers)
             resolve(integers);
         });
     })
@@ -38,7 +43,7 @@ function readAndConvertFile(inputFilePath, outputFilePath) {
 }
 
 
-const inputFilePath = './test_bench/input.txt';
-const outputFilePath = './test_bench/output.txt';
-readAndConvertFile(inputFilePath,outputFilePath)
+//const inputFilePath = './test_bench/input.txt';
+//const outputFilePath = './test_bench/output.txt';
+//readAndConvertFile(inputFilePath,outputFilePath)
 module.exports=readAndConvertFile;

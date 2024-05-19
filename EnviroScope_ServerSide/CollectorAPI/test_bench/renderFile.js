@@ -6,7 +6,6 @@ function simulateReadings() {
     const outputFilePath = __dirname + '/output.txt';
     console.log(inputFilePath);
     console.log(outputFilePath);
-//Implement checksumFilter
     return writeRandomBitStringToFile(inputFilePath, 40)
         .then(() => {
             return readAndConvertFile(inputFilePath, outputFilePath);

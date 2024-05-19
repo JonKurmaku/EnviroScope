@@ -1,5 +1,7 @@
 const fs  = require('fs');
 
+const filteredInput=[];
+
 function calculateChecksum(bits) {
     const chunks = bits.match(/.{1,8}/g);
     const sum = chunks.slice(0, 4).reduce((acc, chunk) => acc + parseInt(chunk, 2), 0);
@@ -8,9 +10,8 @@ function calculateChecksum(bits) {
     return checksum;
 }
 
-function verifyChecksum(filePath) {
-    const data = fs.readFileSync(filePath, 'utf8').trim().split('\n');
-    
+function verifyChecksum(content) {
+    const data = content.trim().split('\n');
     data.forEach(row => {
         const bits = row.trim();
         const dataBits = bits.slice(0, 32);
@@ -19,11 +20,14 @@ function verifyChecksum(filePath) {
         const calculatedChecksum = calculateChecksum(dataBits);
         
         if (calculatedChecksum === checksumBits) {
+            filteredInput.push(bits);
             console.log("Checksum verified for row: " + bits);
         } else {
             console.log("Checksum verification failed for row: " + bits);
         }
     });
+
+    return filteredInput;
 }
 
 module.exports = verifyChecksum;

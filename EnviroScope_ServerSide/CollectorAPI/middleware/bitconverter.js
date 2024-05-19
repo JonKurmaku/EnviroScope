@@ -1,24 +1,22 @@
-
-function convertBitsToIntegers(content) {
-  const rows = content.trim().split('\n'); 
-  
+function convertBitsToIntegers(array) {
   const integers = [];
 
-  rows.forEach(row => {
-      const firstNumber = parseInt(row.substring(0, 16), 2);
-      const firstNumberIntegerPart = parseInt(row.substring(0, 8), 2);
-      const firstNumberFloatingPointPart = parseInt(row.substring(8, 16), 2) / 100;
-      integers.push(firstNumberIntegerPart + firstNumberFloatingPointPart);
+  array.forEach(entry => {
+      const firstNumberIntegerPart = parseInt(entry.substring(0, 8), 2);
+      const firstNumberFloatingPointPart = parseInt(entry.substring(8, 16), 2) / 100;
+      const firstNumber = firstNumberIntegerPart + firstNumberFloatingPointPart;
+      integers.push(firstNumber);
 
-      const secondNumber = parseInt(row.substring(16, 32), 2);
-      const secondNumberIntegerPart = parseInt(row.substring(16, 24), 2);
-      const secondNumberFloatingPointPart = parseInt(row.substring(24, 32), 2) / 100;
-      integers.push(secondNumberIntegerPart + secondNumberFloatingPointPart);
+      const secondNumberIntegerPart = parseInt(entry.substring(16, 24), 2);
+      const secondNumberFloatingPointPart = parseInt(entry.substring(24, 32), 2) / 100;
+      const secondNumber = secondNumberIntegerPart + secondNumberFloatingPointPart;
+      integers.push(secondNumber);
 
-      const thirdNumber = parseInt(row.substring(32, 40), 2);
+      const thirdNumber = parseInt(entry.substring(32, 40), 2);
       integers.push(thirdNumber);
   });
 
   return integers;
 }
-module.exports=convertBitsToIntegers;
+
+module.exports = convertBitsToIntegers;
