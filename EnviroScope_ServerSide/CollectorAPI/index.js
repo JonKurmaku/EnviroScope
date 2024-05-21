@@ -1,7 +1,8 @@
 const { express, fs, mysql, path ,timers} = require('./dependecies/modules');
 const db = require('./dependecies/db_config'); 
 const startDataPosting = require('./controllers/postController');
-const simulateReadings = require('./test_bench/renderFile');
+//const simulateReadings = require('./test_bench/renderFile');
+const simulateReadings = require('./initialize');
 const setInterval = timers.setInterval;
 const setTimeout = timers.setTimeout;
 const app = express();
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
 require('./controllers/getController')(app,db); //Render Landing Page
 require('./controllers/dbTest')(app,db); //MySQL connection testing
 setInterval(()=>{
-simulateReadings() //TEST DATA 
+simulateReadings() 
 console.log("Files Successful");
 setTimeout(()=>startDataPosting(db),2000);  //Simulate Readings 
 console.log("POST Successful");
