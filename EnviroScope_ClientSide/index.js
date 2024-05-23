@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   
-  interval = 62000;
+  interval = 66000;
 
   setInterval(()=>{
   fetch('/current-values')

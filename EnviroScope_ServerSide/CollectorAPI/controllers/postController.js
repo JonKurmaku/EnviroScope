@@ -50,10 +50,10 @@ async function postDataToDatabaseBits(filePath, db) {
 }
 
 function startDataPosting(db) {
-    const inFilePath = './test_bench/input.txt';
+    const inFilePath = './data.txt';
     postDataToDatabaseBits(inFilePath, db);
 
-    const outfilePath = './test_bench/output.txt';
+    const outfilePath = './output.txt';
     postDataToDatabaseValues(outfilePath, db);
 }
 

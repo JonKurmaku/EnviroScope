@@ -15,9 +15,9 @@ app = Flask(__name__)
 CORS(app)
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(train, 'interval', minutes=1)
-scheduler.add_job(refreshData, 'interval', minutes=1)
-scheduler.add_job(predict_next_days, 'interval', minutes=1)
+scheduler.add_job(refreshData, 'interval', minutes=1440)
+scheduler.add_job(train, 'interval', minutes=1440)
+scheduler.add_job(predict_next_days, 'interval', minutes=1440)
 scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 

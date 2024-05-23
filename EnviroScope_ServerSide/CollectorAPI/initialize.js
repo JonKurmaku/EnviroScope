@@ -1,8 +1,8 @@
 const readAndConvertFile = require('./middleware/convertExporter');
 
 function simulateReadings() {
-    const inputFilePath = __dirname + '/data.txt';
-    const outputFilePath = __dirname + '/output.txt';
+    const inputFilePath = 'C:/Users/Joni/Documents/GitHub/EnviroScope/EnviroScope_ServerSide/CollectorAPI/data.txt';
+    const outputFilePath = 'C:/Users/Joni/Documents/GitHub/EnviroScope/EnviroScope_ServerSide/CollectorAPI/output.txt';
     console.log(inputFilePath);
     console.log(outputFilePath);
      
@@ -15,4 +15,5 @@ function simulateReadings() {
         });
 }
 
-simulateReadings();
+simulateReadings()
+module.exports=simulateReadings

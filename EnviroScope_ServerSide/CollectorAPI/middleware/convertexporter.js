@@ -10,7 +10,7 @@ function readAndConvertFile(inputFilePath, outputFilePath) {
                 reject(err);
                 return;
             }
-            console.log("Unfiltered bits",content)
+//            console.log("Unfiltered bits",content)
             const filteredData = checksumFilter(content)
             console.log("Filtered Data",filteredData)
             const integers = convertBitsToIntegers(filteredData);
