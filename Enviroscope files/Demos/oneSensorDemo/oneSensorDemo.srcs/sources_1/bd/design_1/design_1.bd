@@ -1,0 +1,67 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x0",
+      "device": "xc7a100tcsg324-1",
+      "gen_directory": "../../../../oneSensorDemo.gen/sources_1/bd/design_1",
+      "name": "design_1",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2023.2"
+    },
+    "design_tree": {
+      "axi_ethernetlite_0": "",
+      "microblaze_0": ""
+    },
+    "components": {
+      "axi_ethernetlite_0": {
+        "vlnv": "xilinx.com:ip:axi_ethernetlite:3.0",
+        "ip_revision": "28",
+        "xci_name": "design_1_axi_ethernetlite_0_0",
+        "xci_path": "ip\\design_1_axi_ethernetlite_0_0\\design_1_axi_ethernetlite_0_0.xci",
+        "inst_hier_path": "axi_ethernetlite_0"
+      },
+      "microblaze_0": {
+        "vlnv": "xilinx.com:ip:microblaze:11.0",
+        "ip_revision": "12",
+        "xci_name": "design_1_microblaze_0_0",
+        "xci_path": "ip\\design_1_microblaze_0_0\\design_1_microblaze_0_0.xci",
+        "inst_hier_path": "microblaze_0",
+        "interface_ports": {
+          "DLMB": {
+            "vlnv": "xilinx.com:interface:lmb_rtl:1.0",
+            "mode": "Master",
+            "address_space_ref": "Data",
+            "base_address": {
+              "minimum": "0x00000000",
+              "maximum": "0xFFFFFFFF",
+              "width": "32"
+            }
+          },
+          "ILMB": {
+            "vlnv": "xilinx.com:interface:lmb_rtl:1.0",
+            "mode": "Master",
+            "address_space_ref": "Instruction",
+            "base_address": {
+              "minimum": "0x00000000",
+              "maximum": "0xFFFFFFFF",
+              "width": "32"
+            }
+          }
+        },
+        "addressing": {
+          "address_spaces": {
+            "Data": {
+              "range": "4G",
+              "width": "32"
+            },
+            "Instruction": {
+              "range": "4G",
+              "width": "32"
+            }
+          }
+        }
+      }
+    }
+  }
+}

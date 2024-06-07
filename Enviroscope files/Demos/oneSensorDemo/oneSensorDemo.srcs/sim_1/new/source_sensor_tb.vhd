@@ -59,7 +59,7 @@ library IEEE;
     stim_proc: process
     begin       
         -- hold reset state for 100 ns.
-        wait for 6010 ms; 
+        -- wait for 100 ns; 
         
         -- Stimulate the Start Signal
         -- start_signal <= '1';
@@ -69,24 +69,26 @@ library IEEE;
         -- end if;
         
         -- Simulate the DHT11 response
-        wait for 20 ms; -- This will be past the 18ms required by the DHT11
-        wait for 30 us; -- DHT11 pulls the line low for 80us
+        wait for 20 ms; -- FPGA pulls down for 20 ms
+        wait for 30 us; -- FPGA pulls up for 30 us
         dht11_data <= '0';
-        wait for 80 us;
+        wait for 80 us; -- DHT11 pulls the line low for 80us
         dht11_data <= '1'; -- DHT11 pulls the line high for 80us
         wait for 80 us;
         
         -- Simulate 40 bits of data from the DHT11
         -- For simplicity, let's just send 40 bits of '0'
         -- Each bit starts with a 50us low and a high of 26-28us for '0', 70us for '1'
-        for i in 1 to 40 loop
+        for i in 0 to 39 loop
             dht11_data <= '0'; -- Start of bit, DHT11 pulls low
+            report "Ready to read data" severity note;
             wait for 50 us;
-            if i mod 2 = 0 then
-                dht11_data <= '1'; -- Length of this high pulse determines '0' or '1'
+            report "Bit to read: " & integer'image(i) severity note;
+            dht11_data <= '1';
+            if i mod 2 = 1 then
+                -- Length of this high pulse determines '0' or '1'
                 wait for 26 us; -- Change this to 70 us for a '1'
             else
-                dht11_data <= '1';
                 wait for 70 us;
             end if;
         end loop;
@@ -95,7 +97,7 @@ library IEEE;
         wait for 50 us;
         dht11_data <= '1'; -- DHT11 releases the line
         -- Adjust this time as needed
-
+        assert false report "End of Simulation" severity failure;
     -- Stop the simulation
          --stop <= '1';
         --wait;-- will wait forever
